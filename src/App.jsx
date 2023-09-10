@@ -1,8 +1,15 @@
 import "./App.css";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
+import GridSize from "./Grid";
+import { useState } from "react";
 
 function App() {
+  const [gridSize, setGridSize] = useState("");
+  const handleInputChange = () => {
+    setGridSize(event.target.value);
+  };
+
   return (
     <>
       <div className="appContainer">
@@ -12,26 +19,39 @@ function App() {
             <div className="penButtons">
               <Button variant="primary" id="penButton">
                 Black
-              </Button>{" "}
+              </Button>
               <br />
               <Button variant="primary" id="penButton">
                 Rainbow
-              </Button>{" "}
+              </Button>
               <br />
               <Button variant="primary" id="penButton">
                 Eraser
-              </Button>{" "}
+              </Button>
               <br />
             </div>
           </div>
           <div className="pen-image"></div>
           <div className="sketch">
             <div className="outer">
-              <span id="header">Etch-a-Sketch!</span>
-              <div className="sketch-content"></div>
+              <div id="header">Etch-a-Sketch!</div>
+              <div className="sketch-content">
+                <GridSize gridSize={gridSize} />
+              </div>
             </div>
           </div>
-          <div className="gridchanger"></div>
+          <div className="gridChanger">
+            <h1>Size</h1>
+            <p>Adjust the grid size (only between 121 and 1024!)</p>
+            <input
+              type="number"
+              value={gridSize}
+              onChange={handleInputChange}
+              id="gridInput"
+              min="121"
+              max="1024"
+            />
+          </div>
         </div>
       </div>
     </>

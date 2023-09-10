@@ -21,19 +21,31 @@ h1 {
 .penButtons {
   display: flex;
   flex-direction: column;
-  /* size: ; */
 }
 
-#penButton {
+#penButton,
+#gridButton {
   background-color: #052f5f;
   border-color: #052f5f;
 }
 
-#penButton:hover {
+#penButton:hover,
+#gridButton:hover {
   background-color: #3b71ca;
 }
 
+#gridInput {
+  height: 40px;
+  margin-right: 10px;
+  background-color: #f93943;
+  color: white;
+  min-width: 200px;
+  border-radius: 7px;
+  font-size: 1.8em;
+}
+
 .outer {
+  margin: 100px;
   width: 400px;
   height: 500px;
   background-color: #f93943;
@@ -51,8 +63,27 @@ h1 {
   top: 10%;
   left: 10%;
   border: 2px solid #000;
+  /*Grid*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 #header {
   text-align: center;
+  background-color: #f93943;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 24px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(var(--num-cols, 1), 1fr);
+  grid-template-rows: repeat(var(--num-rows, 1), 1fr);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
