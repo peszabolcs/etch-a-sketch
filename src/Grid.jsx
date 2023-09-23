@@ -1,50 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./Grid.css";
 
 function GridSize({ gridSize }) {
-  if (gridSize > 120 && gridSize < 1025) {
-    const [numCols, setNumCols] = useState(1);
-    const [numRows, setNumRows] = useState(1);
+  const [numCols, setNumCols] = useState(1);
+  const [numRows, setNumRows] = useState(1);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [blackCells, setBlackCells] = useState([]);
 
-    useEffect(() => {
-      const cols = Math.ceil(Math.sqrt(gridSize));
-      const rows = Math.ceil(gridSize / cols);
+  useEffect(() => {
+    const cols = Math.ceil(Math.sqrt(gridSize));
+    const rows = Math.ceil(gridSize / cols);
 
-      setNumCols(cols);
-      setNumRows(rows);
+    setNumCols(cols);
+    setNumRows(rows);
 
-      document.documentElement.style.setProperty("--num-cols", cols);
-      document.documentElement.style.setProperty("--num-rows", rows);
-    }, [gridSize]);
+    document.documentElement.style.setProperty("--num-cols", cols);
+    document.documentElement.style.setProperty("--num-rows", rows);
 
-    const divElements = Array.from({ length: gridSize }, (_, index) => (
-      <div className="grid-cell" key={index}></div>
-    ));
+    // Reset blackCells when gridSize changes
+    setBlackCells([]);
+  }, [gridSize]);
 
-    return <div className="grid-container">{divElements}</div>;
-  }
-}
-
-function HoverDraw() {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
+  const handleGridCellMouseDown = (index) => {
+    setIsDrawing(true);
+    handleGridCellHover(index);
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
+  const handleGridCellMouseUp = () => {
+    setIsDrawing(false);
   };
 
-  const hoveredClass = isHovered ? "grid-cell grid-cell-hover" : "grid-cell";
+  const handleGridCellHover = (index) => {
+    if (isDrawing && !blackCells.includes(index)) {
+      setBlackCells([...blackCells, index]);
+    }
+  };
 
-  return (
+  const isCellBlack = (index) => blackCells.includes(index);
+
+  const divElements = Array.from({ length: gridSize }, (_, index) => (
     <div
-      className={divClassName}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className={`grid-cell ${isCellBlack(index) ? "grid-cell-hover" : ""}`}
+      key={index}
+      onMouseDown={() => handleGridCellMouseDown(index)}
+      onMouseUp={handleGridCellMouseUp}
+      onMouseEnter={() => handleGridCellHover(index)}
     ></div>
-  );
+  ));
+
+  return <div className="grid-container">{divElements}</div>;
 }
 
 export default GridSize;

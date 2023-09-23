@@ -5,7 +5,7 @@ import GridSize from "./Grid";
 import { useState } from "react";
 
 function App() {
-  const [gridSize, setGridSize] = useState("");
+  const [gridSize, setGridSize] = useState(121);
   const handleInputChange = () => {
     setGridSize(event.target.value);
   };
@@ -17,15 +17,23 @@ function App() {
           <div className="pens">
             <h1>Pens</h1>
             <div className="penButtons">
-              <Button variant="primary" id="penButton">
+              <Button
+                variant="primary"
+                className="penButton"
+                id="blackPenButton"
+              >
                 Black
               </Button>
               <br />
-              <Button variant="primary" id="penButton">
+              <Button
+                variant="primary"
+                className="penButton"
+                id="rainbowPenButton"
+              >
                 Rainbow
               </Button>
               <br />
-              <Button variant="primary" id="penButton">
+              <Button variant="primary" className="penButton" id="eraserButton">
                 Eraser
               </Button>
               <br />

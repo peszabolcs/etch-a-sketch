@@ -23,14 +23,16 @@ h1 {
   flex-direction: column;
 }
 
-#penButton,
-#gridButton {
+#blackPenButton,
+#rainbowPenButton,
+#eraserButton {
   background-color: #052f5f;
   border-color: #052f5f;
 }
 
-#penButton:hover,
-#gridButton:hover {
+#blackPenButton:hover,
+#rainbowPenButton:hover,
+#eraserButton:hover {
   background-color: #3b71ca;
 }
 
